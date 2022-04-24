@@ -7,6 +7,7 @@
 body {
     width: 100vw;
     height: 100vh;
+    background-color: #8f8989;
 }
 
 .container {
@@ -25,6 +26,7 @@ body {
     align-items: center;
     padding: 16px;
     gap: 10px;
+    background-color: #4b4747;
     border: 2px solid black;
     border-radius: 5%;
 }
@@ -37,6 +39,7 @@ body {
     align-items: flex-end;
     font-size: 40px;
     padding: 0px 10px;
+    background-color: #dacbcb;
     border: 2px solid black;
     border-radius: 5%;
 }
@@ -55,6 +58,24 @@ body {
     height: 100%;
     font-weight: bold;
     font-size: 20px;
+    background-color: #9fb2f0;
     border: 2px solid black;
     border-radius: 10%;
+}
+
+#bc,
+#bd {
+    background-color: rgb(240, 109, 109);
+}
+
+#badd,
+#bsubtract,
+#bmultiply,
+#bdivision {
+    background-color: #e7df6c;
+}
+
+#bequal,
+#bdot {
+    background-color: #90e984;
 }
