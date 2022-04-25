@@ -63,6 +63,14 @@ body {
     border-radius: 10%;
 }
 
+.button-calc:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0 0);
+}
+
+.button-calc:active {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6) 0 0);
+}
+
 #bc,
 #bd {
     background-color: rgb(240, 109, 109);

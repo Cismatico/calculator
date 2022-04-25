@@ -2,19 +2,19 @@
 
 function add(number1, number2) {
 
-    return parseInt(number1) + parseInt(number2);
+    return parseFloat(number1) + parseFloat(number2);
 }
 
 function subtract(number1, number2) {
-    return parseInt(number1) - parseInt(number2);
+    return parseFloat(number1) - parseFloat(number2);
 }
 
 function multiply(number1, number2) {
-    return parseInt(number1) * parseInt(number2);
+    return parseFloat(number1) * parseFloat(number2);
 }
 
 function divide(number1, number2) {
-    return parseInt(number1) / parseInt(number2);
+    return parseFloat(number1) / parseFloat(number2);
 }
 
 function operate(operator, number1, number2) {
@@ -22,28 +22,28 @@ function operate(operator, number1, number2) {
         case '+':
             result = add(number1, number2);
             if (isFloat(result)) {
-                result = Number(result.toFixed(2));
+                result = Number(result.toFixed(4));
             }
             screen.textContent = result;
             break;
         case '-':
             result = subtract(number1, number2);
             if (isFloat(result)) {
-                result = Number(result.toFixed(2));
+                result = Number(result.toFixed(4));
             }
             screen.textContent = result;
             break;
         case '*':
             result = multiply(number1, number2);
             if (isFloat(result)) {
-                result = Number(result.toFixed(2));
+                result = Number(result.toFixed(4));
             }
             screen.textContent = result;
             break;
         case '/':
             result = divide(number1, number2);
             if (isFloat(result)) {
-                result = Number(result.toFixed(2));
+                result = Number(result.toFixed(4));
             }
             screen.textContent = result;
             break;
@@ -69,18 +69,43 @@ buttonOperator.forEach(button => button.addEventListener('click', storeOperator)
 const buttonClear = document.querySelector('.clear');
 buttonClear.addEventListener('click', clearValues);
 
-function writeScreen() {
-    if (number1 === '' && number2 === '' && operator === '') {
-        screen.textContent = this.value;
-    } else {
-        screen.textContent += this.value;
+const buttonDot = document.querySelector('#bdot');
+buttonDot.addEventListener('click', writeDot);
+
+const buttonDelete = document.querySelector('.delete');
+buttonDelete.addEventListener('click', deleteInput);
+
+/*const keyboardKey = document.addEventListener('keydown', function(event) {
+    let key = event.key;
+    
+    switch (key) {
+        case '1':
+            writeScreen();
+            storeNumber1();
+            break;
+    
+        default:
+            break;
     }
+});*/
+
+function writeScreen() {
+    if (result === '' || operator !== '') {
+        if (number1 === '' && number2 === '' && operator === '') {
+            screen.textContent = this.value;
+        } else {
+            screen.textContent += this.value;
+        }
+    }
+
 }
 
 function storeNumber1() {
-    if (operator === '') {
+    if (operator === '' && result === '') {
         number1 += this.value;
-    } else {
+    } else if (operator === '' && result !== '') {
+        return;
+    } else if (operator !== '') {
         storeNumber2(this.value);
     }
 }
@@ -90,6 +115,14 @@ function storeNumber2(value) {
 }
 
 function storeOperator() {
+    if (number1 === '' || (number1 !== '' && this.value === '=') && number2 === '') {
+        return;
+    }
+
+    if (operator !== '' && number2 === '') {
+        return;
+    }
+
     if (operator === '' && this.value !== '=') {
         operator = this.value;
         screen.textContent += ' ' + this.value + ' ';
@@ -112,9 +145,33 @@ function clearValues() {
     number1 = '';
     number2 = '';
     operator = '';
+    result = '';
     screen.textContent = '0';
 }
 
 function isFloat(n) {
     return Number(n) === n && n % 1 !== 0;
+}
+
+function writeDot() {
+    if (!String(number1).includes('.') && operator === '' && number2 === '') {
+        number1 += this.value;
+        screen.textContent += this.value;
+    } else if (number1 !== '' && operator !== '' && !String(number2).includes('.')) {
+        number2 += this.value;
+        screen.textContent += this.value;
+    } 
+}
+
+function deleteInput() {
+    if (number1 !== '' && operator === '' && number2 === '') {
+        number1 = number1.slice(0, -1);
+        screen.textContent = screen.textContent.slice(0, -1);
+    } else if (number1 !== '' && operator !== '' && number2 === '') {
+        operator = '';
+        screen.textContent = screen.textContent.slice(0, -3);
+    } else if (number1 !== '' && operator !== '' && number2 !== '') {
+        number2 = number2.slice(0, -1);
+        screen.textContent = screen.textContent.slice(0, -1);
+    }
 }
