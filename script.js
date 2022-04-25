@@ -75,20 +75,6 @@ buttonDot.addEventListener('click', writeDot);
 const buttonDelete = document.querySelector('.delete');
 buttonDelete.addEventListener('click', deleteInput);
 
-/*const keyboardKey = document.addEventListener('keydown', function(event) {
-    let key = event.key;
-    
-    switch (key) {
-        case '1':
-            writeScreen();
-            storeNumber1();
-            break;
-    
-        default:
-            break;
-    }
-});*/
-
 function writeScreen() {
     if (result === '' || operator !== '') {
         if (number1 === '' && number2 === '' && operator === '') {
@@ -160,7 +146,7 @@ function writeDot() {
     } else if (number1 !== '' && operator !== '' && !String(number2).includes('.')) {
         number2 += this.value;
         screen.textContent += this.value;
-    } 
+    }
 }
 
 function deleteInput() {
